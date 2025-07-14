@@ -1,6 +1,5 @@
 package com.khewang.ghbiliapi.client;
 
-import com.khewang.ghbiliapi.DTO.TextGenerationRequestDTO;
 import com.khewang.ghbiliapi.DTO.TextToImageRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -14,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 )
 public interface StabilityAiClient {
 
-    @PutMapping(
+    @PostMapping(
             value = "/v1/generation/{engine_id}/text-to-image",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             headers =  {"Accept=image/png"}
@@ -24,8 +23,8 @@ public interface StabilityAiClient {
             @PathVariable("engine_id") String engineId,
             @RequestBody TextToImageRequest requestBody
             );
-    @PutMapping(
-            value = "/v1/generation/{engine_id}/text-to-image",
+    @PostMapping(
+            value = "/v1/generation/{engine_id}/image-to-image",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             headers =  {"Accept=image/png"}
     )
@@ -33,7 +32,9 @@ public interface StabilityAiClient {
             @RequestHeader("Authorization") String authorizationHeader,
             @PathVariable("engine_id") String engineId,
             @RequestPart("init_image") MultipartFile initImage,
-            @RequestPart("text_prompt[0][text]") String textPrompt,
-            @RequestPart("Style_preset") String stylePreset
+            @RequestPart("text_prompts[0][text]") String textPrompt,
+            @RequestPart(value = "style_preset", required = false) String stylePreset
+
+
     );
 }

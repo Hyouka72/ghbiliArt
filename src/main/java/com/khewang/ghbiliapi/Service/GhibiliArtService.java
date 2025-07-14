@@ -21,7 +21,7 @@ public class GhibiliArtService {
     }
 
     public byte[] createGhibiliArt(MultipartFile image, String prompt) throws IOException {
-        String finalPrompt = prompt+", in the beautiful, detailed anime style of studio ghibli.";
+        String finalPrompt = prompt+", turn into ghibili style.";
         String engineId = "stable-diffusion-v1-6";
         String stylePreset = "anime";
 
@@ -33,7 +33,6 @@ public class GhibiliArtService {
                 stylePreset
         );
     }
-
     public byte[] createGhibiliArtFromText(String prompt, String style) throws IOException {
         String finalPrompt = prompt+", in the beautiful, detailed anime style of studio ghibli.";
         String engineId = "stable-diffusion-v1-6";
@@ -47,3 +46,4 @@ public class GhibiliArtService {
         );
     }
 }
+
